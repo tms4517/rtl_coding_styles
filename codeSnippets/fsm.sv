@@ -5,7 +5,7 @@
 `default_nettype none
 
 module fsm
-  ( input  var logic i_ck
+( input  var logic i_clk
   , input  var logic i_arst
 
   , input  var logic i_stateTransition1
@@ -25,7 +25,7 @@ module fsm
 
   ty_STATE_FSM state_q, state_d;
 
-  always_ff @(posedge i_ck, posedge i_arst)
+  always_ff @(posedge i_clk, posedge i_arst)
     if (i_arst)
       state_q <= STATE_IDLE;
     else
