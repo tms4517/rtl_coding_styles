@@ -46,7 +46,9 @@ variable.
   - `o_*`: prefix all output ports.
   - `u_*`: prefix all module instances.
   - `pa_*`: prefix package names.
+  - `ty_*`: prefix typedefs.
 4. Parameters and local parameters use UPPER_SNAKE_CASE, e.g. `ADDRESS_WIDTH`.
+5. Typedefs should be prefixed with `ty_*` and are UPPER_SNAKE_CASE.
 
 ## Module defaults
 
