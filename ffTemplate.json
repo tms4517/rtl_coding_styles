@@ -1,0 +1,142 @@
+{
+	"Section": {
+	  "prefix": ["sec"],
+	  "body": [
+		"// {{{ ${1: Section name}",
+		"$0",
+		"// }}} $1"
+	  ],
+	  "description": "Section title"
+	},
+
+	"dff_norst_noen": {
+	  "prefix": ["dff_norst_noen"],
+	  "body" : [
+		"// DFF: .ck($1),",
+		"//      .q($2)",
+		"//      .d($3),",
+		"always_ff @(posedge ${1:ck})",
+		"  ${2:q} <= ${3:d};",
+		"",
+		"$0"
+	  ],
+	  "description": "DFF: No reset, No enable"
+	},
+
+	"dff_norst_en": {
+	  "prefix": ["dff_norst_en"],
+	  "body": [
+		"// DFF: .ck($1),",
+		"//      .en($2),",
+		"//      .q($3)",
+		"//      .d($4),",
+		"always_ff @(posedge ${1:ck})",
+		"  if (${2:en})",
+		"    ${3:q} <= ${4:d};",
+		"  else",
+    	"    $3 <= $3;",
+		"",
+		"$0"
+	  ],
+	  "description": "DFF: No reset, Enable"
+	},
+
+	"dff_arst_noen": {
+	  "prefix": ["dff_arst_noen"],
+	  "body": [
+		"// DFF: .ck($1),",
+		"//      .arst($2),",
+		"//      .q($3)",
+		"//      .d($5),",
+		"always_ff @(posedge ${1:ck}, posedge ${2:arst})",
+		"  if ($2)",
+		"    ${3:q} <= ${4:reset value};",
+		"  else",
+		"    $3 <= ${5:d};",
+		"",
+		"$0"
+	  ],
+	  "description": "DFF: Async reset, No enable"
+	},
+
+	"dff_arst_en": {
+	  "prefix": ["dff_arst_en"],
+	  "body": [
+		"// DFF: .ck($1),",
+		"//      .arst($2),",
+		"//      .q($3)",
+		"//      .en($5),",
+		"//      .d($6),",
+		"always_ff @(posedge ${1:ck}, posedge ${2:arst})",
+		"  if ($2)",
+		"    ${3:q} <= ${4:reset value};",
+		"  else if (${5:en})",
+		"    $3 <= ${6:d};",
+		"  else",
+		"    $3 <= $3;",
+		"",
+		"$0"
+	  ],
+	  "description": "DFF: Async reset, Enable"
+	},
+
+	"dff_srst_noen": {
+	  "prefix": ["dff_srst_noen"],
+	  "body": [
+		"// DFF: .ck($1),",
+		"//      .srst($2),",
+		"//      .q($3)",
+		"//      .d($5),",
+		"always_ff @(posedge ${1:ck})",
+		"  if (${2:srst})",
+		"    ${3:q} <= ${4:reset value};",
+		"  else",
+		"    $3 <= ${5:d};",
+		"",
+		"$0"
+	  ],
+	  "description": "DFF: Sync reset, No enable"
+
+	},
+
+	"dff_srst_en" : {
+	  "prefix": ["dff_srst_en"],
+	  "body": [
+		"// DFF: .ck($1),",
+		"//      .srst($2),",
+		"//      .en($5),",
+		"//      .d($6),",
+		"//      .q($3)",
+		"always_ff @(posedge ${1:ck})",
+		"  if (${2:srst})",
+		"    ${3:q} <= ${4:reset value};",
+		"  else if (${5:en}) ",
+		"    $3 <= ${6:d};",
+		"  else",
+		"    $3 <= $3;",
+		"",
+		"$0"
+	  ],
+	  "description": "DFF: Sync reset, Enable"
+	},
+
+	"tff_arst": {
+	  "prefix": ["tff_arst"],
+	  "body": [
+		"// TFF: .ck($1),",
+		"//      .arst($2),",
+		"//      .q($3)",
+		"//      .t($5),",
+		"always_ff @(posedge ${1:ck}, posedge ${2:arst})",
+		"  if ($2)",
+		"    ${3:q} <= ${4:reset value};",
+		"  else if (${5:t})",
+		"    $3 <= !$3;",
+		"  else",
+		"    $3 <= $3;",
+		"",
+		"$0"
+	  ],
+	  "description": "TFF: Async reset"
+	}
+  }
