@@ -19,9 +19,23 @@ ROM).
 5. Insert a final new line at the end of the file.
 6. Use "\n" as the end of line character.
 7. When creating comments, never wrap lines.
+8. All new lines should start as an multiple of 2 spaces. No odd number of
+   spaces.
 
 ## Naming
+
 1. Always use camelCase
 2. Never truncate variable names to save space. Readability of a variable name
 is more important.
-3.
+3. The prefixing or suffixing of variable names for example `*_camelCase` or
+`camelCase_*` serves to draw the users attention to a specific property of a
+variable.
+  - `*_q`: variable is the Q pin of a flip flop.
+  - `*_d`: variable is the D pin of a flip flop.
+  - `*_n`: variable is active-low. It is especially important to identify
+           active-low resets.
+  - `*_p`: variable is a pulse. This will make it clear to users if special
+           handling of the pulse is required.
+  - `i_*`: prefix all input ports.
+  - `o_*`: prefix all output ports.
+  - `u_*`: prefix all module instances.
