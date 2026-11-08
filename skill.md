@@ -80,6 +80,8 @@ variable.
 14. Every `if`, `else if` statement must have an `else` statement.
 15. Every `case` statement must have a corresponding `default` statement.
 16. Input and output ports must be of `var logic`.
+17. Preprocessor and compiler directives should not be indented, and that there
+    are no items preceeding a directive on the same line.
 
 ## Preferences
 
