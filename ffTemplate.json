@@ -138,5 +138,64 @@
 		"$0"
 	  ],
 	  "description": "TFF: Async reset"
+	},
+
+	"dff_arstn_noen": {
+	  "prefix": ["dff_arstn_noen"],
+	  "body": [
+		"// DFF: .ck($1),",
+		"//      .arst_n($2),",
+		"//      .d($5),",
+		"//      .q($3)",
+		"always_ff @(posedge ${1:ck}, negedge ${2:arst_n})",
+		"  if (!$2)",
+		"    ${3:q} <= ${4:reset value};",
+		"  else",
+		"    $3 <= ${5:d};",
+		"",
+		"$0"
+	  ],
+	  "description": "DFF: Active-low async reset, No enable"
+	},
+
+	"dff_arstn_en": {
+	  "prefix": ["dff_arstn_en"],
+	  "body": [
+		"// DFF: .ck($1),",
+		"//      .arst_n($2),",
+		"//      .en($5),",
+		"//      .d($6),",
+		"//      .q($3)",
+		"always_ff @(posedge ${1:ck}, negedge ${2:arst_n})",
+		"  if (!$2)",
+		"    ${3:q} <= ${4:reset value};",
+		"  else if (${5:en})",
+		"    $3 <= ${6:d};",
+		"  else",
+		"    $3 <= $3;",
+		"",
+		"$0"
+	  ],
+	  "description": "DFF: Active-low async reset, Enable"
+	},
+
+	"tff_arstn": {
+	  "prefix": ["tff_arstn"],
+	  "body": [
+		"// TFF: .ck($1),",
+		"//      .arst_n($2),",
+		"//      .t($5),",
+		"//      .q($3)",
+		"always_ff @(posedge ${1:ck}, negedge ${2:arst_n})",
+		"  if (!$2)",
+		"    ${3:q} <= ${4:reset value};",
+		"  else if (${5:t})",
+		"    $3 <= !$3;",
+		"  else",
+		"    $3 <= $3;",
+		"",
+		"$0"
+	  ],
+	  "description": "TFF: Active-low async reset"
 	}
   }

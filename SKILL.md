@@ -78,7 +78,8 @@ variable.
    for `begin` and `end` statements.
 6. The variable assignement should take place on a new line indented by 2 spaces
    after the `always_comb` statement.
-7. When creating FFs refer to `ffTemplate.json`.
+7. When creating FFs refer to `ffTemplate.json`. Never copy the template's
+   `// DFF:`/`// TFF:` pin comments into the RTL; use only the code.
 8. In SV, all the logic is synthesized by default. Never use the `generate`
    and `endgenerate` keywords.
 9. `for` loops are only used at module level, with `always_ff`/`always_comb`
