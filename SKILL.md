@@ -1,3 +1,8 @@
+---
+name: rtl-coding-styles
+description: Use when writing, generating, refactoring or reviewing SystemVerilog RTL (modules, packages, flip flops, muxes, FIFOs, memories) so the code matches Tej Sanghavi's hand-written RTL style. Covers naming, file layout, procedural block rules, flip flop templates (ffTemplate.json) and svlint/Verilator sign-off (.svlint.toml).
+---
+
 RTL created should always be SystemVerilog.
 
 The goal of any RTL should be an abstraction of a schematic. That is, a user
@@ -18,13 +23,14 @@ ROM).
 4. Never leave trailing whitespace.
 5. Insert a final new line at the end of the file.
 6. Use "\n" as the end of line character.
-7. When creating comments, never wrap lines.
+7. Comments longer than 80 characters must be broken into multiple `//` lines.
 8. All new lines should start as an multiple of 2 spaces. No odd number of
    spaces.
 
 ## Naming
 
-1. Always use camelCase
+1. Always use lowerCamelCase for modules, packages, variables, ports,
+   instances and loop labels, combined with the prefixes and suffixes below.
 2. Never truncate variable names to save space. Readability of a variable name
 is more important.
 3. The prefixing or suffixing of variable names for example `*_camelCase` or
@@ -40,7 +46,7 @@ variable.
   - `o_*`: prefix all output ports.
   - `u_*`: prefix all module instances.
   - `pa_*`: prefix package names.
-4. Parameters and local parameters should be uppercase.
+4. Parameters and local parameters use UPPER_SNAKE_CASE, e.g. `ADDRESS_WIDTH`.
 
 ## Module defaults
 
@@ -51,13 +57,17 @@ variable.
 4. Before a module declaration and after the copyright there must be an
    explanation of the purpose of the module, how its implemented and how it
    serves the wider project (for submodules).
-5. Always declare ``default_nettype none` before the module declaration and
-   after the explanation.
-6. Always declare `resetall`  immediately after the `endmodule`.
+5. Always declare `` `default_nettype none`` before the module or package
+   declaration and after the explanation.
+6. Always declare `` `resetall`` immediately after the `endmodule` or
+   `endpackage`.
+7. Rules 1-6 apply to package files as well as module files.
 
 ## SV rules
 
-1. Only use `logic` data type.
+1. Only use `logic` data type. The exception is parameters and local
+   parameters, which must use an explicit two-state type, e.g.
+   `int unsigned` or `bit`.
 2. Only use `always_ff` and `always_comb` as procedural statements.
 3. Only use the non-blocking assignment `<=` in `always_ff`. Only use blocking
    assignment `=` in `always_comb`.
@@ -67,10 +77,12 @@ variable.
 6. The variable assignement should take place on a new line indented by 2 spaces
    after the `always_comb` statement.
 7. When creating FFs refer to `ffTemplate.json`.
-8. In SV, all the logic is synthesized by default. So no need for `generate`
-   statements.
-9. Procedural statements must be inside for loops. This makes the purpose of
-   for loops clear - repeating an arbitrary piece of logic n times.
+8. In SV, all the logic is synthesized by default. Never use the `generate`
+   and `endgenerate` keywords.
+9. `for` loops are only used at module level, with `always_ff`/`always_comb`
+   blocks inside them. Never put a `for` loop inside a procedural block. This
+   makes the purpose of for loops clear - repeating an arbitrary piece of
+   hardware n times.
 10. Use standard iterator names in for loops `i`, `j`, `k`.
 11. For loop begin and end labels should be meaningful.
 12. After the for loop declaration, include a blank line and start the logic on
@@ -80,6 +92,10 @@ variable.
 14. Every `if`, `else if` statement must have an `else` statement.
 15. Every `case` statement must have a corresponding `default` statement.
 16. Input and output ports must be of `var logic`.
+17. Never mix comparison and bitwise operators without brackets, e.g. write
+    `a & (b == c)`, not `a & b == c`.
+18. Separate sensitivity list items with `,`, never `or`, e.g.
+    `always_ff @(posedge i_clk, posedge i_arst)`.
 17. Preprocessor and compiler directives should not be indented, and that there
     are no items preceeding a directive on the same line.
 18. Only use bitwise operators eg `&, ~, |` if bitwise operation is intended.
@@ -111,7 +127,8 @@ variable.
 
 ## Verification
 
-1. Run svlint to enforce the RTL styles.
-   `svlint -c ./.svlint.toml *.sv`
+1. Run svlint to enforce the RTL styles, using the `.svlint.toml` in this
+   skill's directory.
+   `svlint -c <skill_dir>/.svlint.toml *.sv`
 2. There should be no violations from Verilator.
    `"verilator --lint-only -Wall *.sv"`
