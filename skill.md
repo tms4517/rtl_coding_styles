@@ -82,6 +82,8 @@ variable.
 16. Input and output ports must be of `var logic`.
 17. Preprocessor and compiler directives should not be indented, and that there
     are no items preceeding a directive on the same line.
+18. Only use bitwise operators eg `&, ~, |` if bitwise operation is intended.
+    Otherwise, use normal boolean operators `&&, !, ||`.
 
 ## Preferences
 
@@ -103,6 +105,9 @@ variable.
 6. Every code block should have an explanation of what's implemented. It should
    not state the obvious but rather functionally explain whats implemented and
    how it relates to the module.
+7. Use comma leading por-list style.
+8. Named port connections only, .* is banned, one port per line.
+9. Use `'0` or `'1` instead of 1'b1.
 
 ## Verification
 
