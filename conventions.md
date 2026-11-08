@@ -39,3 +39,17 @@ variable.
   - `i_*`: prefix all input ports.
   - `o_*`: prefix all output ports.
   - `u_*`: prefix all module instances.
+  - `pa_*`: prefix package names.
+4. Parameters and local parameters should be uppercase.
+
+## Module defaults
+
+1. A file must contain a copyright header as the first line. Use:
+   `// Copyright (c) <Year> Tej Sanghavi`
+2. Before a module declaration and after the copyright there must be an
+   explanation of the purpose of the module, how its implemented and how it
+   serves the wider project (for submodules).
+3. Always declare ``default_nettype none` before the module declaration and
+   after the explanation.
+4. Always declare ``resetall`  immediately after the endmodule.
+
