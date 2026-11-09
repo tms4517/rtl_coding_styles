@@ -18,7 +18,11 @@ ROM).
 ## Editor rules
 
 1. Only use UTF-8 encoding.
-2. Lines must not be longer than 80 characters.
+2. Lines must not be longer than 80 characters. The exception is port
+   declarations, which must always be on a single line and never be broken
+   into multiple lines, even if they exceed 80 characters. svlint's
+   `style_textwidth` text rule cannot be waived inline, so its violations on
+   port declaration lines are expected and are the only accepted ones.
 3. Only use spaces, never use Tab characters for indentation.
 4. Never leave trailing whitespace.
 5. Insert a final new line at the end of the file.
@@ -91,7 +95,11 @@ variable.
 12. After the for loop declaration, include a blank line and start the logic on
     the following line. After the logic, leave a blank line and then include
     the `end` statement.
-13. Never use unpacked arrays.
+13. Never use unpacked arrays. The exception is memories (RAM, ROM and FIFO
+    storage), which must use an unpacked depth dimension, e.g.
+    `logic [DATA_WIDTH-1:0] mem [DEPTH];`, so tools infer a memory macro.
+    Waive svlint's `unpacked_array` rule around only that declaration with
+    `/* svlint off unpacked_array */` and `/* svlint on unpacked_array */`.
 14. Every `if`, `else if` statement must have an `else` statement.
 15. Every `case` statement must have a corresponding `default` statement.
 16. Input and output ports must be of `var logic`.
