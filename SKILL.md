@@ -111,6 +111,7 @@ variable.
     are no items preceeding a directive on the same line.
 18. Only use bitwise operators eg `&, ~, |` if bitwise operation is intended.
     Otherwise, use normal boolean operators `&&, !, ||`.
+19. Never use pragmas to avoid shortening code.
 
 ## Preferences
 
