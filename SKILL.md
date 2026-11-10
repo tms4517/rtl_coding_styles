@@ -62,7 +62,8 @@ variable.
    `// Copyright (c) <Year> Tej Sanghavi.`
 4. Before a module declaration and after the copyright there must be an
    explanation of the purpose of the module, how its implemented and how it
-   serves the wider project (for submodules).
+   serves the wider project (for submodules). Leave a blank line between the
+   copyright notice and the module description.
 5. Always declare `` `default_nettype none`` before the module or package
    declaration and after the explanation.
 6. Always declare `` `resetall`` immediately after the `endmodule` or
