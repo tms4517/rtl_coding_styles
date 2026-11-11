@@ -137,6 +137,18 @@ variable.
 7. Use comma leading por-list style.
 8. Named port connections only, .* is banned, one port per line.
 9. Use `'0` or `'1` instead of 1'b1.
+10. Follow the example snippets in this skill's `codeSnippets/` directory.
+11. For long AND/OR/XOR of 1-bit terms use `&{...}`, `|{...}` or `^{...}`
+    with comma-leading layout (see `codeSnippets/variableAssignments.sv`).
+    Never use this for multi-bit terms: `|{a, b}` concatenates then reduces
+    to 1 bit. For multi-bit bitwise combination chain the binary operator,
+    one operand per line with the operator leading, e.g.
+    ```systemverilog
+    always_comb
+      y = a
+        | b
+        | c;
+    ```
 
 ## Verification
 
